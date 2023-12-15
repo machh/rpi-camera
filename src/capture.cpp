@@ -158,12 +158,11 @@ int camera_init( const char*  dev_name, int  pix_width, int  pix_height,
     return cam_fd;
 }
 
-int camera_start( int cam_fd, 	 
-					CAM_BUF*    cam_bufs, 		 
-					char*       jpg_buf, 		 
-					int         jpg_width, 		//
-					int         jpg_height, 	//
-					int         quality )
+int camera_start( int cam_fd,CAM_BUF* cam_bufs,
+                char*  jpg_buf,
+                int    jpg_width,
+                int    jpg_height,
+                int    quality)
 {
     int                 ret; 
     int                 jsize;	 
@@ -213,16 +212,15 @@ int camera_start( int cam_fd,
                     jpg_width, 
                     quality  );
 
-        DEBUG_LOG(  "end compress_yuyv_to_jpeg!");
+        DEBUG_LOG("end compress_yuyv_to_jpeg!");
 
         gettimeofday(&tpend,NULL);
         timeuse=1000000*(tpend.tv_sec-tpstart.tv_sec)+ 
         tpend.tv_usec-tpstart.tv_usec;
-        timeuse/=1000000; 
+        timeuse /= 1000000; 
         printf("Used Time:%f\n",timeuse);
         
-        if(ioctl(cam_fd, VIDIOC_QBUF, &buf_frame) < 0)//�ٽ�������
-        {
+        if(ioctl(cam_fd, VIDIOC_QBUF, &buf_frame) < 0) {
             DEBUG_ERR(ERROR, "VIDIOC_QBUF error!");
             close(cam_fd);
             return ERROR;
@@ -307,8 +305,8 @@ int main(void) {
             return ERROR;
         }
 
-        printf("JPEG Size:%d\r\n", jpeg_size);
-        fwrite(JPEG_BUF, jpeg_size, 1, jpeg_fd); //����д���ļ���
+        printf("JPEG Size:%d \r\n", jpeg_size);
+        fwrite(JPEG_BUF, jpeg_size, 1, jpeg_fd); 
         fclose(jpeg_fd);
 
         DEBUG_LOG("Write jpeg file sucess!");
